@@ -1,30 +1,30 @@
 # Ideas
-### **Panel for GP**
+## **Panel for GP**
 
-#### Inside the panel the GP can add and manage patients.
+Inside the panel the GP can add and manage patients.
 
-#### Advantages: Easy for the GP to add patients, a clean overview
+Advantages: Easy for the GP to add patients, a clean overview
 
-#### Disadvantages: Security is very important here.
-
----
-
-### **Security**
-
-#### Security is a very imporant thing, all data has to be saved in a secure place.
-#### The login should also be very secure, think about a verification code for the GP to login, or even allow access from only a couple IP addresses.
-
-#### Adventages: This way no data will be stealed.
-
-#### Disadvantages: Costs extra time to make everything more secure.
+Disadvantages: Security is very important here.
 
 ---
 
-### **Test result**
+## **Security**
 
-#### It is important that the GP gets a clean overview of the test result. The values low/medium/high will show the risk level. Next to that there will also be a overview of the full results.
+Security is a very imporant thing, all data has to be saved in a secure place.
+The login should also be very secure, think about a verification code for the GP to login, or even allow access from only a couple IP addresses.
 
-#### Advantages: This way the GP doesn't have to spend much time to see the result.
+Adventages: This way no data will be stealed.
+
+Disadvantages: Costs extra time to make everything more secure.
+
+---
+
+## **Test result**
+
+It is important that the GP gets a clean overview of the test result. The values low/medium/high will show the risk level. Next to that there will also be a overview of the full results.
+
+Advantages: This way the GP doesn't have to spend much time to see the result.
 
 <br>
 
