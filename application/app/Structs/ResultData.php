@@ -4,7 +4,7 @@ namespace App\Structs;
 
 use JsonSerializable;
 
-final class PatientData implements jsonSerializable
+final class ResultData implements jsonSerializable
 {
     private function __construct(
         public ?int $proteinOne = null,

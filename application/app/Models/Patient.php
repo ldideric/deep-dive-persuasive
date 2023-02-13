@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\Gender;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Patient extends Model
 {
@@ -16,14 +17,17 @@ class Patient extends Model
         'gender',
         'email',
         'address',
-        'data',
         'date_of_birth',
     ];
 
     protected $casts = [
         'address' => 'json',
-        'data' => 'json',
         'gender' => Gender::class,
         'date_of_birth' => 'date',
     ];
+
+    public function results(): HasMany
+    {
+        return $this->hasMany(Result::class);
+    }
 }
