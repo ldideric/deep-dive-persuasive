@@ -12,7 +12,6 @@ class PatientFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'patient_id' => fake()->randomNumber(8),
             'date_of_birth' => fake()->dateTimeBetween('-80 years', '-18 years')->format('Y-m-d'),
             'gender' => fake()->randomElement(Gender::cases()),
             'email' => fake()->unique()->safeEmail(),
