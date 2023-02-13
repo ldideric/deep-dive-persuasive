@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Enums\Gender;
 use App\Structs\PatientAddress;
-use App\Structs\PatientData;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PatientFactory extends Factory
@@ -13,7 +12,6 @@ class PatientFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'patient_id' => fake()->randomNumber(8),
             'date_of_birth' => fake()->dateTimeBetween('-80 years', '-18 years')->format('Y-m-d'),
             'gender' => fake()->randomElement(Gender::cases()),
             'email' => fake()->unique()->safeEmail(),
@@ -23,13 +21,6 @@ class PatientFactory extends Factory
                 fake()->city(),
                 fake()->streetAddress(),
                 fake()->buildingNumber()
-            ),
-            'data' => PatientData::make(
-                fake()->randomNumber(2),
-                fake()->randomNumber(2),
-                fake()->randomNumber(2),
-                fake()->randomNumber(2),
-                fake()->randomNumber(2),
             ),
         ];
     }
