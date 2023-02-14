@@ -37,6 +37,8 @@ Route::middleware(['auth', 'two-factor'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('results/{patient}', [ResultsController::class, 'show'])->name('results.show');
+
 Route::get('verify/resend', [TwoFactorController::class, 'resend'])->name('verify.resend');
 Route::resource('verify', TwoFactorController::class)->only(['index', 'store']);
 require __DIR__.'/auth.php';

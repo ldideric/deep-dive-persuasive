@@ -56,4 +56,18 @@ class User extends Authenticatable
         $this->two_factor_expires_at = null;
         $this->save();
     }
+
+    public function createdAt(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => DateHelper::convert($value)
+        );
+    }
+
+    public function updatedAt(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => DateHelper::convert($value)
+        );
+    }
 }
