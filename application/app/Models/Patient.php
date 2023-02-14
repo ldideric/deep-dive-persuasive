@@ -7,10 +7,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
+use App\Helpers\DateHelper;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Patient extends Model
 {
-    use HasFactory;
+    use HasFactory, HasSlug;
 
     protected $fillable = [
         'name',
@@ -35,5 +39,31 @@ class Patient extends Model
     public function results(): HasMany
     {
         return $this->hasMany(Result::class);
+    }
+
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
+    public function createdAt(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => DateHelper::convert($value)
+        );
+    }
+
+    public function updatedAt(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => DateHelper::convert($value)
+        );
     }
 }

@@ -12,6 +12,12 @@ class UsersSeeder extends Seeder
 {
     public function run()
     {
+        User::factory()->create([
+            'email' => config('auth.login.email'),
+            'password' => bcrypt(config('auth.login.password')),
+            'user_type' => UserType::GP,
+        ]);
+
         $users = User::factory(50)->create();
 
         $users->each(function (User $user) {
@@ -27,5 +33,6 @@ class UsersSeeder extends Seeder
                 });
             }
         });
+
     }
 }

@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\UserType;
+use App\Helpers\DateHelper;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -34,5 +36,19 @@ class User extends Authenticatable
     public function patients(): HasMany
     {
         return $this->hasMany(Patient::class);
+    }
+
+    public function createdAt(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => DateHelper::convert($value)
+        );
+    }
+
+    public function updatedAt(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => DateHelper::convert($value)
+        );
     }
 }
