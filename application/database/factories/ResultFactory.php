@@ -12,11 +12,11 @@ class ResultFactory extends Factory
         return [
             'patient_id' => fake()->randomNumber(8),
             'data' => ResultData::make(
-                fake()->randomNumber(2),
-                fake()->randomNumber(2),
-                fake()->randomNumber(2),
-                fake()->randomNumber(2),
-                fake()->randomNumber(2),
+                fake()->randomFloat(1, 0.5, 5),
+                fake()->randomFloat(1, 0.5, 5),
+                fake()->randomFloat(1, 0.5, 5),
+                fake()->randomFloat(1, 0.5, 5),
+                fake()->numberBetween(1, 3),
             ),
         ];
     }
