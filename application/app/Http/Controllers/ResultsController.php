@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\ResultsService;
-use Illuminate\Http\Request;
-use App\Models\Patient;
-use Inertia\Inertia;
 use App\Http\Resources\PatientResource;
+use App\Models\Patient;
+use App\Services\ResultsService;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class ResultsController extends Controller
 {
@@ -15,12 +15,13 @@ class ResultsController extends Controller
     ) {
     }
 
-    public function show(Patient $patient)
+    public function show(Patient $patient): Response
     {
         $results = $this->results->createFromPatientData($patient);
+
         return Inertia::render('Results/Show', [
             'patient' => (new PatientResource($patient)),
-            'results' => $results
+            'results' => $results,
         ]);
     }
 }

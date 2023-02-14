@@ -3,15 +3,15 @@
 namespace App\Models;
 
 use App\Enums\Gender;
+use App\Helpers\DateHelper;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
-use App\Helpers\DateHelper;
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Carbon\Carbon;
 
 class Patient extends Model
 {
@@ -42,7 +42,7 @@ class Patient extends Model
         return $this->hasMany(Result::class);
     }
 
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name')
@@ -57,21 +57,21 @@ class Patient extends Model
     public function createdAt(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => DateHelper::convert($value)
+            get: fn ($value) => DateHelper::convert($value)
         );
     }
 
     public function updatedAt(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => DateHelper::convert($value)
+            get: fn ($value) => DateHelper::convert($value)
         );
     }
 
     public function age(): Attribute
     {
         return Attribute::make(
-            get: fn() => Carbon::parse($this->date_of_birth)->age
+            get: fn () => Carbon::parse($this->date_of_birth)->age
         );
     }
 }

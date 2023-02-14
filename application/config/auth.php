@@ -4,7 +4,7 @@ return [
 
     'login' => [
         'email' => env('ADMIN_EMAIL', 'admin@admin.com'),
-        'password' => env('ADMIN_PASSWORD', 'secret')
+        'password' => env('ADMIN_PASSWORD', 'secret'),
     ],
 
     /*

@@ -41,14 +41,14 @@ class User extends Authenticatable
     public function createdAt(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => DateHelper::convert($value)
+            get: fn ($value) => DateHelper::convert($value)
         );
     }
 
     public function updatedAt(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => DateHelper::convert($value)
+            get: fn ($value) => DateHelper::convert($value)
         );
     }
 }
