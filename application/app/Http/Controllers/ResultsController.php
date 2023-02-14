@@ -6,6 +6,7 @@ use App\Services\ResultsService;
 use Illuminate\Http\Request;
 use App\Models\Patient;
 use Inertia\Inertia;
+use App\Http\Resources\PatientResource;
 
 class ResultsController extends Controller
 {
@@ -17,9 +18,8 @@ class ResultsController extends Controller
     public function show(Patient $patient)
     {
         $results = $this->results->createFromPatientData($patient);
-
         return Inertia::render('Results/Show', [
-            'patient' => $patient,
+            'patient' => (new PatientResource($patient)),
             'results' => $results
         ]);
     }

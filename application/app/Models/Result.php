@@ -39,4 +39,6 @@ class Result extends Model
             get: fn($value) => DateHelper::convert($value)
         );
     }
+
+    
 }

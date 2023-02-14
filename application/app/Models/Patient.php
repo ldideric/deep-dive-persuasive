@@ -11,6 +11,7 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use App\Helpers\DateHelper;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Carbon\Carbon;
 
 class Patient extends Model
 {
@@ -64,6 +65,13 @@ class Patient extends Model
     {
         return Attribute::make(
             get: fn($value) => DateHelper::convert($value)
+        );
+    }
+
+    public function age(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => Carbon::parse($this->date_of_birth)->age
         );
     }
 }

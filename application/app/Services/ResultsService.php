@@ -20,7 +20,7 @@ class ResultsService{
             $risk = $this->calculateRisk($result->data['protein_one'], $result->data['protein_two'], $result->data['protein_three'], 
             $result->data['protein_four'], $age, $gender);
 
-            return $risk;
+            return ['id' => $result->id, 'date' => $result->created_at, 'value' => $risk, 'risk' => $this->getRiskValue($risk)];
         })->toArray();
 
         return $ResultsData;
@@ -28,8 +28,11 @@ class ResultsService{
 
     public function calculateRisk(float $proteinOne, float $proteinTwo, float $proteinThree, float $proteinFour, int $age, Gender $gender): string
     {
-        $value = (($proteinOne * config('persuasive.algorithm.proteinOne'))+($proteinTwo * config('persuasive.algorithm.proteinTwo'))+($proteinThree * config('persuasive.algorithm.proteinThree'))+($proteinFour * config('persuasive.algorithm.proteinFour'))+($age * config('persuasive.algorithm.age'))) * config('persuasive.algorithm.' . $gender->value);
+        return round((($proteinOne * config('persuasive.algorithm.proteinOne'))+($proteinTwo * config('persuasive.algorithm.proteinTwo'))+($proteinThree * config('persuasive.algorithm.proteinThree'))+($proteinFour * config('persuasive.algorithm.proteinFour'))+($age * config('persuasive.algorithm.age'))) * config('persuasive.algorithm.' . $gender->value), 1);
+    }
 
+    public function getRiskValue(float $value)
+    {
         if($value < config('persuasive.risk.low')) {
             return Risk::Low->value;
         } elseif( $value > config('persuasive.risk.low') && $value < config('persuasive.risk.medium')) {
