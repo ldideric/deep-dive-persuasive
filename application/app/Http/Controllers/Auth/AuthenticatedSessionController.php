@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Providers\RouteServiceProvider;
+use App\Models\User;
+use App\Notifications\TwoFactorCode;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +29,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        auth()->user()->generateTwoFactorCode();
+        auth()->user()->notify(new TwoFactorCode);
+
+        return redirect()->route('verify.index');
     }
 
     public function destroy(Request $request): RedirectResponse
@@ -40,5 +44,11 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    public function authenticated(User $user)
+    {
+        $user->generateTwoFactorCode();
+        $user->notify(new TwoFactorCode);
     }
 }

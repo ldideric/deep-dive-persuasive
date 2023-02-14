@@ -21,6 +21,8 @@ class User extends Authenticatable
         'email',
         'password',
         'user_type',
+        'two_factor_secret',
+        'two_factor_expires_at',
     ];
 
     protected $hidden = [
@@ -30,6 +32,7 @@ class User extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'two_factor_expires_at' => 'datetime',
         'user_type' => UserType::class,
     ];
 
@@ -38,17 +41,19 @@ class User extends Authenticatable
         return $this->hasMany(Patient::class);
     }
 
-    public function createdAt(): Attribute
+    public function generateTwoFactorCode()
     {
-        return Attribute::make(
-            get: fn ($value) => DateHelper::convert($value)
-        );
+        $this->timestamps = false;
+        $this->two_factor_secret = random_int(100000, 999999);
+        $this->two_factor_expires_at = now()->addMinutes(10);
+        $this->save();
     }
 
-    public function updatedAt(): Attribute
+    public function resetTwoFactorCode()
     {
-        return Attribute::make(
-            get: fn ($value) => DateHelper::convert($value)
-        );
+        $this->timestamps = false;
+        $this->two_factor_secret = null;
+        $this->two_factor_expires_at = null;
+        $this->save();
     }
 }
