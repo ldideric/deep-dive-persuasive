@@ -1,4 +1,5 @@
 <template>
+    <Head title="Results" />
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Results</h2>
@@ -50,10 +51,12 @@
 
 <script>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import { Head } from '@inertiajs/vue3';
 
 export default {
     components: {
-        AuthenticatedLayout
+        AuthenticatedLayout,
+        Head,
     },
     props: {
         patient: {

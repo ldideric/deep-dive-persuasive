@@ -1,4 +1,5 @@
 <template>
+    <Head title="Add patient data" />
     <AuthenticatedLayout>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -84,6 +85,8 @@ import { usePrecognitiveForm } from "laravel-precognition-vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import InputError from "@/Components/InputError.vue";
 import SuccessMessage from "@/Components/SuccessMessage.vue";
+import { Head } from '@inertiajs/vue3';
+
 
 export default {
     components: {
@@ -91,7 +94,8 @@ export default {
         InputError,
         PrimaryButton,
         AuthenticatedLayout,
-        InputLabel
+        InputLabel,
+        Head,
     },
     props: {
         patient: {
