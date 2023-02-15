@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Scope;
 
 class PatientScope implements Scope
 {
-
     public function apply(Builder $builder, Model $model)
     {
         $builder->where('user_id', auth()->id());
