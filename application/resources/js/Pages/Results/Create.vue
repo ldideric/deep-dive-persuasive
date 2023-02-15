@@ -2,7 +2,7 @@
     <AuthenticatedLayout>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg flex justify-center">
                     <SuccessMessage v-if="flash.success" :message="flash.success" class="m-4"></SuccessMessage>
                     <div class="p-6 flex flex-col space-y-6">
                         <div>
@@ -11,7 +11,7 @@
                             <input
                                 type="text"
                                 name="protein_one"
-                                class="block w-1/4 flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                class="block w-full flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                 placeholder="value"
                                 v-model="form.proteinOne"
                                 @change="form.validate('proteinOne')"
@@ -23,7 +23,7 @@
                             <input
                                 type="text"
                                 name="protein_two"
-                                class="block w-1/4 flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                class="block w-full flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                 placeholder="value"
                                 v-model="form.proteinTwo"
                                 @input="form.validate('proteinTwo')"
@@ -36,7 +36,7 @@
                             <input
                                 type="text"
                                 name="protein_three"
-                                class="block w-1/4 flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                class="block w-full flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                 placeholder="value"
                                 v-model="form.proteinThree"
                                 @input="form.validate('proteinThree')"
@@ -49,7 +49,7 @@
                             <input
                                 type="text"
                                 name="protein_four"
-                                class="block w-1/4 flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                class="block w-full flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                 placeholder="value"
                                 v-model="form.proteinFour"
                                 @input="form.validate('proteinFour')"
@@ -61,13 +61,13 @@
                             <input
                                 type="text"
                                 name="signal_value"
-                                class="block w-1/4 flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                class="block w-full flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                 placeholder="value"
                                 v-model="form.signalValue"
                                 @input="form.validate('signalValue')"
                             >
                         </div>
-                        <PrimaryButton class="w-32" @click.prevent="create">submit</PrimaryButton>
+                        <PrimaryButton class="w-full" @click.prevent="create">submit</PrimaryButton>
                     </div>
                 </div>
             </div>
