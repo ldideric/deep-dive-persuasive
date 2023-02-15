@@ -14,7 +14,7 @@ export default {
         },
         results: {
             type: Object,
-            required: true,
+            required: false,
         },
     },
     methods: {
@@ -45,7 +45,7 @@ export default {
                         <div class="right bg-gray-100 w-1/3 m-3 flex flex-col items-center py-2">
                             <div class="text-2xl font-semibold border-b-2 mb-2">Recent activity</div>
                             <div class="">
-                                <table v-if="results.length">
+                                <table v-if="Object.keys(results).length > 0">
                                     <tr>
                                         <th class="border-b-2 border-gray-600 p-1">Patient</th>
                                         <th class="border-b-2 border-gray-600 p-1">Activity</th>
