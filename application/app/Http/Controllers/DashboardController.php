@@ -2,23 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Result;
 use Inertia\Inertia;
-use App\Models\Patient;
-use Illuminate\Http\Request;
+use Inertia\Response;
 
 class DashboardController extends Controller
 {
-    public function show()
+    public function show(): Response
     {
-        $recentresults = Patient::join('results', 'patients.id', '=', 'results.patient_id')
-            ->where('patients.user_id', auth()->user()->id)
-            ->select('patients.*', 'results.*')
-            ->orderBy('results.created_at', 'desc')
-            ->take(5)
-            ->get();
+        $results = Result::all()->sortByDesc('created_at')->load('patient');
+
         return Inertia::render('Dashboard', [
-            'user' => auth()->user(),
-            'recentresults' => $recentresults,
+            'results' => $results,
         ]);
     }
 }

@@ -12,14 +12,14 @@ export default {
             type: Object,
             required: true,
         },
-        recentresults: {
+        results: {
             type: Object,
             required: true,
         },
     },
     methods: {
-        view(recent) {
-           router.get(route('results.show', recent.slug));
+        view(result) {
+           router.get(route('results.show', result.patient.slug));
         }
     },
 };
@@ -45,19 +45,19 @@ export default {
                         <div class="right bg-gray-100 w-1/3 m-3 flex flex-col items-center py-2">
                             <div class="text-2xl font-semibold border-b-2 mb-2">Recent activity</div>
                             <div class="">
-                                <table v-if="recentresults.length">
+                                <table v-if="results.length">
                                     <tr>
                                         <th class="border-b-2 border-gray-600 p-1">Patient</th>
                                         <th class="border-b-2 border-gray-600 p-1">Activity</th>
                                     </tr>
-                                    <tr v-for="recent in recentresults" class="text-center">
+                                    <tr v-for="result in results" class="text-center">
                                         <td class="border-t-2 border-gray-400 p-1 px-4">
-                                            <button @click="view(recent)">
-                                                {{ recent.name }}
+                                            <button @click="view(result)">
+                                                {{ result.patient.name }}
                                             </button>
                                         </td>
                                         <td class="border-t-2 border-gray-400 p-1 px-4 font-semibold">
-                                            <button @click="view(recent)">
+                                            <button @click="view(result)">
                                                 New result
                                             </button>
                                         </td>

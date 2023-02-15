@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\PatientsController;
 use App\Http\Controllers\Auth\TwoFactorController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PatientsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResultsController;
-use App\Http\Controllers\DashboardController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
