@@ -14,6 +14,7 @@ class PatientsIndexResource extends JsonResource
             'name' => $this->name,
             'date_of_birth' => DateHelper::convert($this->date_of_birth),
             'gender' => $this->gender,
+            'slug' => $this->slug,
         ];
     }
 }
