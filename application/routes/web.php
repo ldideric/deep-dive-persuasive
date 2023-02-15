@@ -36,11 +36,12 @@ Route::middleware(['auth', 'two-factor'])->group(function () {
     Route::get('results/{patient}', [ResultsController::class, 'show'])
         ->name('results.show');
 
-    Route::get('results/{patient}/create', [ResultsController::class, 'create'])
+    Route::get('results/{patient:id}/create', [ResultsController::class, 'create'])
+        ->middleware('isScientist')
         ->name('results.create');
 
     Route::post('results/{patient}/store', [ResultsController::class, 'store'])
-        ->middleware(HandlePrecognitiveRequests::class)
+        ->middleware(['isScientist', HandlePrecognitiveRequests::class])
         ->name('results.store');
 });
 
