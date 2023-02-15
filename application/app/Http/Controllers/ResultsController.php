@@ -6,9 +6,9 @@ use App\Http\Requests\StoreResultsRequest;
 use App\Http\Resources\PatientResource;
 use App\Models\Patient;
 use App\Services\ResultsService;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
-use Illuminate\Http\Request;
 
 class ResultsController extends Controller
 {
@@ -34,10 +34,10 @@ class ResultsController extends Controller
         ]);
     }
 
-    public function store(StoreResultsRequest $request, Patient $patient): Response
+    public function store(StoreResultsRequest $request, Patient $patient): RedirectResponse
     {
-        $result = $this->results->create($patient, $request->validated());
+        $this->results->create($patient, $request->validated());
 
-        dd($result);
+        return redirect()->route('results.create', $patient)->with('success', 'Results successfully submitted!');
     }
 }

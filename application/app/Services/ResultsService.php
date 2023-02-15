@@ -4,8 +4,8 @@ namespace App\Services;
 
 use App\Enums\Risk;
 use App\Models\Patient;
-use App\Structs\ResultData;
 use App\Models\Result;
+use App\Structs\ResultData;
 
 class ResultsService
 {
@@ -45,7 +45,7 @@ class ResultsService
     {
         $result = $patient->results()->create([
             'patient_id' => $patient->id,
-            'data' => ResultData::createFromRequestData($data, 'data')
+            'data' => ResultData::createFromRequestData($data, 'data'),
         ]);
 
         return $result;

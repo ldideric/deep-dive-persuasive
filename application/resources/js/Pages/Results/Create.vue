@@ -3,18 +3,71 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900">
-                        <InputLabel value="Protein1"></InputLabel>
-                        <input type="number" v-model="form.proteinOne" @input="form.validate('proteinOne')">
-                        <InputLabel value="Protein2"></InputLabel>
-                        <input type="number" v-model="form.proteinTwo">
-                        <InputLabel value="Protein3"></InputLabel>
-                        <input type="number" v-model="form.proteinThree">
-                        <InputLabel value="Protein4"></InputLabel>
-                        <input type="number" v-model="form.proteinFour">
-                        <InputLabel value="Signal Value"></InputLabel>
-                        <input type="number" v-model="form.signalValue">
-                        <button @click.prevent="create">submit</button>
+                    <SuccessMessage v-if="flash.success" :message="flash.success" class="m-4"></SuccessMessage>
+                    <div class="p-6 flex flex-col space-y-6">
+                        <div>
+                            <InputLabel value="Protein one"></InputLabel>
+                            <InputError v-if="form.errors.proteinOne" :message="form.errors.proteinOne"></InputError>
+                            <input
+                                type="text"
+                                name="protein_one"
+                                class="block w-1/4 flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                placeholder="value"
+                                v-model="form.proteinOne"
+                                @change="form.validate('proteinOne')"
+                            >
+                        </div>
+                        <div>
+                            <InputLabel value="Protein Two"></InputLabel>
+                            <InputError v-if="form.errors.proteinTwo" :message="form.errors.proteinTwo"></InputError>
+                            <input
+                                type="text"
+                                name="protein_two"
+                                class="block w-1/4 flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                placeholder="value"
+                                v-model="form.proteinTwo"
+                                @input="form.validate('proteinTwo')"
+                            >
+                        </div>
+                        <div>
+                            <InputLabel value="Protein Three"></InputLabel>
+                            <InputError v-if="form.errors.proteinThree" :message="form.errors.proteinThree"></InputError>
+
+                            <input
+                                type="text"
+                                name="protein_three"
+                                class="block w-1/4 flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                placeholder="value"
+                                v-model="form.proteinThree"
+                                @input="form.validate('proteinThree')"
+                            >
+                        </div>
+                        <div>
+                            <InputLabel value="Protein Four"></InputLabel>
+                            <InputError v-if="form.errors.proteinFour" :message="form.errors.proteinFour"></InputError>
+
+                            <input
+                                type="text"
+                                name="protein_four"
+                                class="block w-1/4 flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                placeholder="value"
+                                v-model="form.proteinFour"
+                                @input="form.validate('proteinFour')"
+                            >
+                        </div>
+                        <div>
+                            <InputLabel value="Signal value"></InputLabel>
+                            <InputError v-if="form.errors.signalValue" :message="form.errors.signalValue"></InputError>
+                            <input
+                                type="text"
+                                name="signal_value"
+                                class="block w-1/4 flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                placeholder="value"
+                                v-model="form.signalValue"
+                                @input="form.validate('signalValue')"
+                            >
+                        </div>
+                        <PrimaryButton class="w-32" @click.prevent="create">submit</PrimaryButton>
                     </div>
                 </div>
             </div>
@@ -28,9 +81,15 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import { useForm } from '@inertiajs/vue3';
 import { usePrecognitiveForm } from "laravel-precognition-vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import InputError from "@/Components/InputError.vue";
+import SuccessMessage from "@/Components/SuccessMessage.vue";
 
 export default {
     components: {
+        SuccessMessage,
+        InputError,
+        PrimaryButton,
         AuthenticatedLayout,
         InputLabel
     },
@@ -39,9 +98,13 @@ export default {
             type: Object,
             required: true,
         },
+        flash: {
+            type: Object,
+            required: false,
+        },
     },
-    setup() {
-        const form = usePrecognitiveForm('post', route('results.store'), useForm({
+    setup(props) {
+        const form = usePrecognitiveForm('post', route('results.store', props.patient.slug), useForm({
             proteinOne: '',
             proteinTwo: '',
             proteinThree: '',
@@ -57,9 +120,6 @@ export default {
         create() {
             this.form.post(route('results.store', this.patient.slug), {
                 preserveScroll: true,
-                onSuccess: () => {
-                    this.$inertia.reload();
-                },
             });
         }
     },

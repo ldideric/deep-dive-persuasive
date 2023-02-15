@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\PatientsController;
 use App\Http\Controllers\Auth\TwoFactorController;
+use App\Http\Controllers\PatientsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResultsController;
 use Illuminate\Foundation\Application;
@@ -51,7 +51,6 @@ Route::middleware(['auth', 'two-factor'])->group(function () {
         ->middleware(HandlePrecognitiveRequests::class)
         ->name('results.store');
 });
-
 
 Route::get('verify/resend', [TwoFactorController::class, 'resend'])->name('verify.resend');
 Route::resource('verify', TwoFactorController::class)->only(['index', 'store']);
