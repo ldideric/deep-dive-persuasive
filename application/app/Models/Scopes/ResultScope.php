@@ -12,6 +12,6 @@ class ResultScope implements Scope
     {
         $patients = auth()->user()->patients;
 
-        $builder->whereIn('patient_id', $patients->pluck('id'));
+        $builder->whereIn('patient_id', $patients->pluck('id'))->orderBy('created_at', 'desc');
     }
 }

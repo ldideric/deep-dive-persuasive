@@ -10,7 +10,7 @@ class DashboardController extends Controller
 {
     public function show(): Response
     {
-        $results = Result::all()->sortByDesc('created_at')->load('patient');
+        $results = Result::all()->load('patient')->take(5);
 
         return Inertia::render('Dashboard', [
             'results' => $results,
