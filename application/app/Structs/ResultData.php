@@ -20,6 +20,11 @@ final class ResultData implements jsonSerializable
         return new self($proteinOne, $protefloatwo, $protefloathree, $proteinFour, $signalValue);
     }
 
+    public static function createFromRequestData(array $requestData): self
+    {
+        return self::make($requestData['proteinOne'], $requestData['proteinTwo'], $requestData['proteinThree'], $requestData['proteinFour'], $requestData['signalValue']);
+    }
+
     public function jsonSerialize(): array
     {
         return [
