@@ -18,6 +18,7 @@ class ResultFactory extends Factory
                 fake()->randomFloat(1, 0.5, 5),
                 fake()->numberBetween(1, 3),
             ),
+            'created_at' => fake()->dateTimeBetween('-2 year', 'now'),
         ];
     }
 }

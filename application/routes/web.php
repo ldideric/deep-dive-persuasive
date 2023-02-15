@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\TwoFactorController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PatientsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResultsController;
@@ -24,11 +25,9 @@ Route::get('/', function () {
     return redirect()->route('login');
 })->name('home');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified', 'two-factor'])->name('dashboard');
-
 Route::middleware(['auth', 'two-factor'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'show'])->name('dashboard');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
