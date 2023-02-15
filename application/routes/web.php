@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\TwoFactorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResultsController;
 use Illuminate\Foundation\Application;
+use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -38,11 +39,19 @@ Route::middleware(['auth', 'two-factor'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/patients', [PatientsController::class, 'index'])
-        ->middleware(['auth', 'verified'])
         ->name('patients.index');
+
+    Route::get('results/{patient}', [ResultsController::class, 'show'])
+        ->name('results.show');
+
+    Route::get('results/{patient}/create', [ResultsController::class, 'create'])
+        ->name('results.create');
+
+    Route::post('results/{patient}/store', [ResultsController::class, 'store'])
+        ->middleware(HandlePrecognitiveRequests::class)
+        ->name('results.store');
 });
 
-Route::get('results/{patient}', [ResultsController::class, 'show'])->name('results.show');
 
 Route::get('verify/resend', [TwoFactorController::class, 'resend'])->name('verify.resend');
 Route::resource('verify', TwoFactorController::class)->only(['index', 'store']);
