@@ -30,6 +30,16 @@ class ResultsController extends Controller
         ]);
     }
 
+    public function info(Patient $patient, int $id): Response
+    {
+        $result = $this->results->createFromResult($patient, $id);
+
+        return Inertia::render('Results/Info', [
+            'patient' => (new PatientResource($patient)),
+            'result' => $result,
+        ]);
+    }
+
     public function store(StoreResultsRequest $request, Patient $patient): RedirectResponse
     {
         $this->results->create($patient, $request->validated());

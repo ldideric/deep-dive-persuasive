@@ -35,6 +35,9 @@ Route::middleware(['auth', 'two-factor'])->group(function () {
     Route::get('results/{patient}', [ResultsController::class, 'show'])
         ->name('results.show');
 
+    Route::get('results/{patient}/{id}', [ResultsController::class, 'info'])
+        ->name('results.info');
+
     Route::get('results/{patient:id}/create', [ResultsController::class, 'create'])
         ->middleware('isScientist')
         ->name('results.create');
