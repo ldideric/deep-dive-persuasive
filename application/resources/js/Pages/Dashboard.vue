@@ -176,7 +176,7 @@ export default {
                                 <div class="p-4">
                                     <SuccessMessage v-if="flash.success" :message="flash.success" class="m-4"></SuccessMessage>
                                     <InputError v-if="excelForm.errors" :message="excelForm.errors[0]" class="m-4"></InputError>
-                                    <span class="italic text-lg font-semibold text-left"> Add a new lab result for patient {{ patient.name }}</span>
+                                    <span class="italic text-lg font-semibold text-left"> Add a new lab result for patient {{ patient.id }}</span>
                                 </div>
                                 <div class="p-6 flex flex-col space-y-6 justify-center items-center">
                                     <div>
