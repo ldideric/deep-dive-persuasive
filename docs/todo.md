@@ -23,7 +23,7 @@
 - [X] Gebruik ID's in plaats van namen in de url
 - [X] dubbel check of register eruit gesloopt is
 - [X] Je mag alleen resultaten toevoegen als je een scientist bent
-- [ ] Search function op GP patientenpagina moet ook zoeken naar geboortedatum
+- [X] Search function op GP patientenpagina moet ook zoeken naar geboortedatum
 
 ***
 
