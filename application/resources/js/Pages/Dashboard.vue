@@ -57,9 +57,15 @@ export default {
                 controlValue: '',
             }));
 
+            const excelForm = useForm({
+                file: '',
+                patientId: props.patient.id,
+            });
+
             return {
                 form,
                 searchForm,
+                excelForm,
             };
         }
 
@@ -81,7 +87,15 @@ export default {
             this.form.post(route('results.store', this.patient.slug), {
                 preserveScroll: true,
             });
-        }
+        },
+        onFileChange(file) {
+            this.excelForm.file = file;
+        },
+        uploadExcel() {
+            this.excelForm.post(route('results.import'), {
+                preserveScroll: true,
+            });
+        },
     },
 };
 </script>
@@ -140,7 +154,7 @@ export default {
                     </div>
                     <div
                         v-else
-                        class="p-6 bg-white border-b border-gray-200"
+                        class="p-6 bg-white"
                     >
                         <span class="text-gray-500">
                             Search for a patient by ID and add new lab results
@@ -158,10 +172,11 @@ export default {
                             </PrimaryButton>
                         </div>
                         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8" v-if="patient">
-                            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg flex flex-col">
+                            <div class="bg-white overflow-hidden sm:rounded-lg flex flex-col">
                                 <div class="p-4">
                                     <SuccessMessage v-if="flash.success" :message="flash.success" class="m-4"></SuccessMessage>
-                                    <span class="italic text-sm font-semibold text-left"> Add a new lab result for patient {{ patient.name }}</span>
+                                    <InputError v-if="excelForm.errors" :message="excelForm.errors[0]" class="m-4"></InputError>
+                                    <span class="italic text-lg font-semibold text-left"> Add a new lab result for patient {{ patient.name }}</span>
                                 </div>
                                 <div class="p-6 flex flex-col space-y-6 justify-center items-center">
                                     <div>
@@ -228,6 +243,11 @@ export default {
                                     </div>
                                     <PrimaryButton class="w-1/6" @click.prevent="create">submit</PrimaryButton>
                                 </div>
+                                <div class="w-full flex justify-end">
+                                    <input type="file" @change="onFileChange($event.target.files[0])" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                                    <PrimaryButton class="w-1/6 bg-green-500 font-bold text-center" @click.prevent="uploadExcel">Upload Excel</PrimaryButton>
+                                </div>
+
                             </div>
                         </div>
                     </div>
