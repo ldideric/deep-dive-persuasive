@@ -25,3 +25,13 @@
 ### Optioneel
 
 - [ ] GP's kunnen patienten toevoegen
+
+
+### Notes mama
+
+- patient information page: geen email, wel geboortedatum & leeftijd tussen haakjes
+- Beter kijken de presentatie voor het algoritme (slide pagina 11)
+- "Result" moet "Risk" worden
+- "Risk" text moet kleuren bij low, medium, high naar groen, oranje, rood
+
+- Search function op GP patientenpagina moet ook zoeken naar geboortedatum
