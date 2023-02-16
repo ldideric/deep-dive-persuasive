@@ -1,9 +1,11 @@
 <script>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, router } from '@inertiajs/vue3';
+import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 export default {
     components: {
+        PrimaryButton,
         AuthenticatedLayout,
         Head,
     },
@@ -16,11 +18,24 @@ export default {
             type: Object,
             required: false,
         },
+        isScientist: {
+            type: Boolean,
+            required: true,
+            default: false,
+        },
+    },
+    data () {
+        return {
+            patientId: null,
+        };
     },
     methods: {
         view(result) {
            router.get(route('results.show', result.patient.slug));
-        }
+        },
+        createResult() {
+            router.get(route('results.create', this.patientId));
+        },
     },
 };
 </script>
@@ -28,47 +43,72 @@ export default {
 <template>
     <Head title="Dashboard" />
     <AuthenticatedLayout>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
+        <template #header v-if="!isScientist">
+            <span
+                class="font-semibold text-xl text-gray-800 leading-tight"
+            >
+                Dashboard
+            </span>
         </template>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-xl font-semibold text-gray-900">Welcome {{ user.name }}</div>
-                    <div class="flex justify-around">
-                        <div class="left bg-gray-100 w-2/3 m-3 flex flex-col items-center py-2">
-                            <div class="text-3xl font-semibold">
-                                Something
+                    <div v-if="!isScientist">
+                        <div class="flex justify-around">
+                            <div class="left bg-gray-100 w-2/3 m-3 flex flex-col items-center py-2">
+                                <div class="text-3xl font-semibold">
+                                    Something
+                                </div>
+                            </div>
+                            <div class="right bg-gray-100 w-1/3 m-3 flex flex-col items-center py-2">
+                                <div class="text-2xl font-semibold border-b-2 border-gray-200 mb-2">Recent activity</div>
+                                <div class="">
+                                    <table v-if="Object.keys(results).length > 0">
+                                        <tr>
+                                            <th class="border-b-2 border-gray-600 p-1">Patient</th>
+                                            <th class="border-b-2 border-gray-600 p-1">Activity</th>
+                                            <th class="border-b-2 border-gray-600 p-1"></th>
+                                        </tr>
+                                        <tr v-for="result in results" class="text-center">
+                                            <td class="border-t-2 border-gray-400 p-1 px-4" >
+                                                {{ result.patient.name }}
+                                            </td>
+                                            <td class="border-t-2 border-gray-400 p-1 px-4 font-semibold">
+                                                New result
+                                            </td>
+                                            <td class="border-t-2 border-gray-400 p-1 px-4 font-semibold">
+                                                <button @click="view(result)">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 00-1.883 2.542l.857 6a2.25 2.25 0 002.227 1.932H19.05a2.25 2.25 0 002.227-1.932l.857-6a2.25 2.25 0 00-1.883-2.542m-16.5 0V6A2.25 2.25 0 016 3.75h3.879a1.5 1.5 0 011.06.44l2.122 2.12a1.5 1.5 0 001.06.44H18A2.25 2.25 0 0120.25 9v.776" />
+                                                    </svg>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <div v-else class="text-center text-gray-500">No recent activity</div>
+                                </div>
                             </div>
                         </div>
-                        <div class="right bg-gray-100 w-1/3 m-3 flex flex-col items-center py-2">
-                            <div class="text-2xl font-semibold border-b-2 border-gray-200 mb-2">Recent activity</div>
-                            <div class="">
-                                <table v-if="Object.keys(results).length > 0">
-                                    <tr>
-                                        <th class="border-b-2 border-gray-600 p-1">Patient</th>
-                                        <th class="border-b-2 border-gray-600 p-1">Activity</th>
-                                        <th class="border-b-2 border-gray-600 p-1"></th>
-                                    </tr>
-                                    <tr v-for="result in results" class="text-center">
-                                        <td class="border-t-2 border-gray-400 p-1 px-4" >
-                                            {{ result.patient.name }}
-                                        </td>
-                                        <td class="border-t-2 border-gray-400 p-1 px-4 font-semibold">
-                                            New result
-                                        </td>
-                                        <td class="border-t-2 border-gray-400 p-1 px-4 font-semibold">
-                                            <button @click="view(result)">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 00-1.883 2.542l.857 6a2.25 2.25 0 002.227 1.932H19.05a2.25 2.25 0 002.227-1.932l.857-6a2.25 2.25 0 00-1.883-2.542m-16.5 0V6A2.25 2.25 0 016 3.75h3.879a1.5 1.5 0 011.06.44l2.122 2.12a1.5 1.5 0 001.06.44H18A2.25 2.25 0 0120.25 9v.776" />
-                                                </svg>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </table>
-                                <div v-else class="text-center text-gray-500">No recent activity</div>
-                            </div>
+                    </div>
+                    <div
+                        v-else
+                        class="p-6 bg-white border-b border-gray-200"
+                    >
+                        <span class="text-gray-500">
+                            Search for a patient by ID and add new lab results
+                        </span>
+                        <div class="flex px-2">
+                            <input
+                                type="text"
+                                class="block w-full mr-4 rounded-md border-gray-300 pr-12 shadow-sm focus:border-blue-400 focus:ring-blue-400 sm:text-sm"
+                                placeholder="Patient ID"
+                                v-model="patientId"
+                            />
+                            <PrimaryButton @click="createResult">
+                                Add
+                            </PrimaryButton>
                         </div>
                     </div>
                 </div>

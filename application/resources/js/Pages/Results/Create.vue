@@ -3,9 +3,12 @@
     <AuthenticatedLayout>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg flex justify-center">
-                    <SuccessMessage v-if="flash.success" :message="flash.success" class="m-4"></SuccessMessage>
-                    <div class="p-6 flex flex-col space-y-6">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg flex flex-col">
+                    <div class="p-4">
+                        <SuccessMessage v-if="flash.success" :message="flash.success" class="m-4"></SuccessMessage>
+                        <span class="italic text-sm font-semibold text-left"> Add a new lab result for patient {{ patient.name }}</span>
+                    </div>
+                    <div class="p-6 flex flex-col space-y-6 justify-center items-center">
                         <div>
                             <InputLabel value="Protein one"></InputLabel>
                             <InputError v-if="form.errors.proteinOne" :message="form.errors.proteinOne"></InputError>
@@ -68,7 +71,7 @@
                                 @input="form.validate('signalValue')"
                             >
                         </div>
-                        <PrimaryButton class="w-full" @click.prevent="create">submit</PrimaryButton>
+                        <PrimaryButton class="w-1/6" @click.prevent="create">submit</PrimaryButton>
                     </div>
                 </div>
             </div>
