@@ -1,10 +1,17 @@
 <script>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, router } from '@inertiajs/vue3';
+import {Head, router, useForm} from '@inertiajs/vue3';
 import PrimaryButton from "@/Components/PrimaryButton.vue";
+import InputLabel from "@/Components/InputLabel.vue";
+import InputError from "@/Components/InputError.vue";
+import SuccessMessage from "@/Components/SuccessMessage.vue";
+import {usePrecognitiveForm} from "laravel-precognition-vue";
 
 export default {
     components: {
+        SuccessMessage,
+        InputError,
+        InputLabel,
         PrimaryButton,
         AuthenticatedLayout,
         Head,
@@ -23,19 +30,58 @@ export default {
             required: true,
             default: false,
         },
+        patient: {
+            type: Object,
+            required: false,
+        },
+        flash: {
+            type: Object,
+            required: false,
+        },
+        errors: {
+            type: Object,
+            required: false,
+        }
     },
-    data () {
+    setup(props) {
+        const searchForm = useForm({
+            patientId: '',
+        });
+
+        if(props.patient) {
+            const form = usePrecognitiveForm('post', route('results.store', props.patient.slug), useForm({
+                proteinOne: '',
+                proteinTwo: '',
+                proteinThree: '',
+                proteinFour: '',
+                controlValue: '',
+            }));
+
+            return {
+                form,
+                searchForm,
+            };
+        }
+
         return {
-            patientId: null,
+            searchForm,
         };
+
     },
     methods: {
         view(result) {
            router.get(route('results.show', result.patient.slug));
         },
         createResult() {
-            router.get(route('results.create', this.patientId));
+            this.searchForm.get(route('dashboard'), {
+                preserveScroll: true,
+            })
         },
+        create() {
+            this.form.post(route('results.store', this.patient.slug), {
+                preserveScroll: true,
+            });
+        }
     },
 };
 </script>
@@ -99,16 +145,90 @@ export default {
                         <span class="text-gray-500">
                             Search for a patient by ID and add new lab results
                         </span>
+                        <InputError v-if="errors.patientId" :message="errors.patientId" class="m-4"></InputError>
                         <div class="flex px-2">
                             <input
                                 type="text"
                                 class="block w-full mr-4 rounded-md border-gray-300 pr-12 shadow-sm focus:border-blue-400 focus:ring-blue-400 sm:text-sm"
                                 placeholder="Patient ID"
-                                v-model="patientId"
+                                v-model="searchForm.patientId"
                             />
                             <PrimaryButton @click="createResult">
                                 Add
                             </PrimaryButton>
+                        </div>
+                        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8" v-if="patient">
+                            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg flex flex-col">
+                                <div class="p-4">
+                                    <SuccessMessage v-if="flash.success" :message="flash.success" class="m-4"></SuccessMessage>
+                                    <span class="italic text-sm font-semibold text-left"> Add a new lab result for patient {{ patient.name }}</span>
+                                </div>
+                                <div class="p-6 flex flex-col space-y-6 justify-center items-center">
+                                    <div>
+                                        <InputLabel value="Protein One"></InputLabel>
+                                        <InputError v-if="form.errors.proteinOne" :message="form.errors.proteinOne"></InputError>
+                                        <input
+                                            type="text"
+                                            name="protein_one"
+                                            class="block w-full flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                            placeholder="value"
+                                            v-model="form.proteinOne"
+                                            @change="form.validate('proteinOne')"
+                                        >
+                                    </div>
+                                    <div>
+                                        <InputLabel value="Protein Two"></InputLabel>
+                                        <InputError v-if="form.errors.proteinTwo" :message="form.errors.proteinTwo"></InputError>
+                                        <input
+                                            type="text"
+                                            name="protein_two"
+                                            class="block w-full flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                            placeholder="value"
+                                            v-model="form.proteinTwo"
+                                            @input="form.validate('proteinTwo')"
+                                        >
+                                    </div>
+                                    <div>
+                                        <InputLabel value="Protein Three"></InputLabel>
+                                        <InputError v-if="form.errors.proteinThree" :message="form.errors.proteinThree"></InputError>
+
+                                        <input
+                                            type="text"
+                                            name="protein_three"
+                                            class="block w-full flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                            placeholder="value"
+                                            v-model="form.proteinThree"
+                                            @input="form.validate('proteinThree')"
+                                        >
+                                    </div>
+                                    <div>
+                                        <InputLabel value="Protein Four"></InputLabel>
+                                        <InputError v-if="form.errors.proteinFour" :message="form.errors.proteinFour"></InputError>
+
+                                        <input
+                                            type="text"
+                                            name="protein_four"
+                                            class="block w-full flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                            placeholder="value"
+                                            v-model="form.proteinFour"
+                                            @input="form.validate('proteinFour')"
+                                        >
+                                    </div>
+                                    <div>
+                                        <InputLabel value="Control value"></InputLabel>
+                                        <InputError v-if="form.errors.controlValue" :message="form.errors.controlValue"></InputError>
+                                        <input
+                                            type="text"
+                                            name="signal_value"
+                                            class="block w-full flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                            placeholder="value"
+                                            v-model="form.controlValue"
+                                            @input="form.validate('controlValue')"
+                                        >
+                                    </div>
+                                    <PrimaryButton class="w-1/6" @click.prevent="create">submit</PrimaryButton>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
