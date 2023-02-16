@@ -2,10 +2,10 @@
 
 namespace App\Models\Scopes;
 
+use App\Enums\UserType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
-use App\Enums\UserType;
 
 class PatientScope implements Scope
 {

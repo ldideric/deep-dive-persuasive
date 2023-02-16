@@ -8,31 +8,31 @@ final class ResultData implements jsonSerializable
 {
     private function __construct(
         public ?float $proteinOne = null,
-        public ?float $protefloatwo = null,
-        public ?float $protefloathree = null,
+        public ?float $proteinTwo = null,
+        public ?float $proteinThree = null,
         public ?float $proteinFour = null,
-        public ?int $signalValue = null,
+        public ?int $controlValue = null,
     ) {
     }
 
-    public static function make(?float $proteinOne, ?float $protefloatwo, ?float $protefloathree, ?float $proteinFour, ?int $signalValue): self
+    public static function make(?float $proteinOne, ?float $proteinTwo, ?float $proteinThree, ?float $proteinFour, ?int $signalValue): self
     {
-        return new self($proteinOne, $protefloatwo, $protefloathree, $proteinFour, $signalValue);
+        return new self($proteinOne, $proteinTwo, $proteinThree, $proteinFour, $signalValue);
     }
 
     public static function createFromRequestData(array $requestData): self
     {
-        return self::make($requestData['proteinOne'], $requestData['proteinTwo'], $requestData['proteinThree'], $requestData['proteinFour'], $requestData['signalValue']);
+        return self::make($requestData['proteinOne'], $requestData['proteinTwo'], $requestData['proteinThree'], $requestData['proteinFour'], $requestData['controlValue']);
     }
 
     public function jsonSerialize(): array
     {
         return [
             'protein_one' => $this->proteinOne,
-            'protein_two' => $this->protefloatwo,
-            'protein_three' => $this->protefloathree,
+            'protein_two' => $this->proteinTwo,
+            'protein_three' => $this->proteinThree,
             'protein_four' => $this->proteinFour,
-            'signal_value' => $this->signalValue,
+            'control_value' => $this->controlValue,
         ];
     }
 }

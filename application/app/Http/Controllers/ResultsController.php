@@ -27,17 +27,10 @@ class ResultsController extends Controller
         ]);
     }
 
-    public function create(Patient $patient): Response
-    {
-        return Inertia::render('Results/Create', [
-            'patient' => (new PatientResource($patient)),
-        ]);
-    }
-
     public function store(StoreResultsRequest $request, Patient $patient): RedirectResponse
     {
         $this->results->create($patient, $request->validated());
 
-        return redirect()->route('results.create', $patient)->with('success', 'Results successfully submitted!');
+        return redirect()->route('dashboard', ['patientId' => $patient->id])->with('success', 'Results successfully submitted!');
     }
 }
