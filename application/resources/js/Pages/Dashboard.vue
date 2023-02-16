@@ -135,7 +135,6 @@ export default {
                                     </table>
                                     <div v-else class="text-center text-gray-500">No recent activity</div>
                                 </div>
->>>>>>> application/resources/js/Pages/Dashboard.vue
                             </div>
                         </div>
                     </div>
