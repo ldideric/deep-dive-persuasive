@@ -42,6 +42,10 @@ Route::middleware(['auth', 'two-factor'])->group(function () {
     Route::post('results/{patient}/store', [ResultsController::class, 'store'])
         ->middleware(['isScientist', HandlePrecognitiveRequests::class])
         ->name('results.store');
+
+    Route::post('results/import', [ResultsController::class, 'import'])
+        ->middleware('isScientist')
+        ->name('results.import');
 });
 
 Route::get('verify/resend', [TwoFactorController::class, 'resend'])->name('verify.resend');

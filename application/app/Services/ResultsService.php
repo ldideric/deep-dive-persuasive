@@ -45,7 +45,7 @@ class ResultsService
     {
         $result = $patient->results()->create([
             'patient_id' => $patient->id,
-            'data' => ResultData::createFromRequestData($data, 'data'),
+            'data' => ResultData::createFromRequestData($data),
         ]);
 
         return $result;
