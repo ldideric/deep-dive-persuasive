@@ -43,16 +43,17 @@
                         <div class="text-3xl font-bold m-3 border-b-2">
                             Test result
                         </div>
-                        <div v-for="(result, index) in results" class="group transition duration-500 bg-gray-100 hover:bg-gray-200 hover:drop-shadow-xl drop-shadow-lg rounded-lg p-4 mb-5 w-96" :class="{ 'border-4 border-green-400': index == 0 }">
+                        <div v-for="(result, index) in results" class="group transition duration-500 bg-gray-100 hover:bg-gray-200 hover:drop-shadow-xl drop-shadow-lg rounded-lg p-4 mb-5 w-96" :class="{ 'border-4 border-blue-400': index == 0 }">
                             <div class="transition duration-500 group-hover:border-gray-300 font-bold border-b-2 text-lg">
-                                <span v-if="index == 0" class="text-xl text-green-500">Most recent<br/></span>
+                                <span v-if="index == 0" class="text-xl text-blue-500">Most recent<br/></span>
                                 {{ result.date }} - Test result
                             </div>
                             <div class="m-1 p-1 w-fit">
                                 <span class="font-bold">Date</span>: {{ result.date }}
                             </div>
                             <div class="m-1 p-1 w-fit">
-                                <span class="font-bold">Result</span>: {{ result.risk }}
+                                <span class="font-bold">Risk factor</span>:
+                                <span class="font-bold" :class="{'text-red-600': result.risk === 'High', 'text-orange-600': result.risk === 'Medium', 'text-green-600': result.risk === 'Low'}">{{ result.risk }}</span>
                             </div>
                             <a class="p-1 text-center text-gray-500 underline underline-offset-2 font-semibold cursor-pointer select-none">
                                 More information
