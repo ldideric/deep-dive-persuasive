@@ -15,10 +15,27 @@
                             Patient information
                         </div>
                         <div class="group transition duration-500 bg-gray-100 hover:bg-gray-200 hover:drop-shadow-xl drop-shadow-lg rounded-lg p-5 mb-3 w-96">
-                            <div v-for="(value, info) in patient" class="transition duration-500 m-1 p-1 text-lg w-fit underline decoration-gray-200 group-hover:decoration-gray-300 underline-offset-8">
-                                <span class="font-bold">{{ ucfirst(info) }}</span>:
-                                <a v-if="info == 'email'" :href="'mailto:' + value" class="text-blue-600">{{ value }}</a>
-                                <span v-else>{{ value }}</span>
+                            <div class="transition duration-500 m-1 p-1 text-lg w-fit underline decoration-gray-200 group-hover:decoration-gray-300 underline-offset-8 flex flex-col">
+                                <div class="pb-4 text-left">
+                                    <span class="font-bold">Name</span>:
+                                    <span>{{ patient.name }}</span>
+                                </div>
+                                <div class="pb-4 text-left">
+                                    <span class="font-bold">E-mail</span>:
+                                    <a :href="'mailto:' + patient.email" class="text-blue-600">{{ patient.email }}</a>
+                                </div>
+                                <div class="pb-4 text-left">
+                                    <span class="font-bold">Gender</span>:
+                                    <span>{{ patient.gender }}</span>
+                                </div>
+                                <div class="pb-4 text-left">
+                                    <span class="font-bold">Date of birth</span>:
+                                    <span>{{ patient.date_of_birth }}</span>
+                                </div>
+                                <div class="pb-4 text-left">
+                                    <span class="font-bold">Age</span>:
+                                    <span>{{ patient.age }} years</span>
+                                </div>
                             </div>
                         </div>
                     </div>
