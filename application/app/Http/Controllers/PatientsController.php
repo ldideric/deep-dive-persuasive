@@ -13,6 +13,7 @@ class PatientsController extends Controller
     {
         $patients = Patient::where('name', 'like', '%'.request()->search.'%')
             ->orWhere('id', 'like', '%'.request()->search.'%')
+            ->orWhere('date_of_birth', 'like', '%'.request()->search.'%')
             ->get();
 
         return Inertia::render('Patients/Index', [
