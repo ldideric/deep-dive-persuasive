@@ -100,7 +100,7 @@ export default {
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-xl font-semibold text-gray-900">Welcome {{ user.name }}</div>
+                    <div class="p-6 text-xl font-semibold text-gray-900">Welcome, {{ user.name }}</div>
                     <div v-if="!isScientist">
                         <div class="flex justify-around">
                             <div class="left bg-gray-100 w-2/3 m-3 flex flex-col items-center py-2">
@@ -135,6 +135,7 @@ export default {
                                     </table>
                                     <div v-else class="text-center text-gray-500">No recent activity</div>
                                 </div>
+>>>>>>> application/resources/js/Pages/Dashboard.vue
                             </div>
                         </div>
                     </div>

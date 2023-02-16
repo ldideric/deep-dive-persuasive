@@ -4,7 +4,7 @@
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Patients
+                {{ $page.props.user.name }}'s Patients
             </h2>
         </template>
 
@@ -16,7 +16,7 @@
                             v-model="form.search"
                             @input="search"
                             type="text" name="search" id="search"
-                            placeholder="Search by name or ID"
+                            placeholder="Search by ID, Name or Date of Birth"
                             class="block w-full rounded-md border-gray-300 pr-12 shadow-sm focus:border-blue-400 focus:ring-blue-400 sm:text-sm">
                     </div>
                 </div>
