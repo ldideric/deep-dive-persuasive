@@ -10,10 +10,14 @@ class DashboardController extends Controller
 {
     public function show(): Response
     {
-        $results = Result::all()->load('patient')->take(5);
+        if (! auth()->user()->isScientist()) {
+            $results = Result::all()->load('patient')->take(5);
 
-        return Inertia::render('Dashboard', [
-            'results' => $results,
-        ]);
+            return Inertia::render('Dashboard', [
+                'results' => $results,
+            ]);
+        }
+
+        return Inertia::render('Dashboard');
     }
 }

@@ -33,7 +33,7 @@ const showingNavigationDropdown = ref(false);
                                     Dashboard
                                 </NavLink>
                             </div>
-                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex" v-if="! $page.props.isScientist">
                                 <NavLink :href="route('patients.index')" :active="route().current('patients.index')">
                                     Patients
                                 </NavLink>
