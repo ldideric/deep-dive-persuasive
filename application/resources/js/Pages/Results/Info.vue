@@ -5,7 +5,7 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Result of {{ result.date }}</h2>
         </template>
         <div class="py-12 flex justify-center items-center text-center">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 bg-white rounded-md w-full relative">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 bg-white rounded-md w-full relative py-6">
                 <button @click="back" class="absolute left-2 top-2 bg-gray-100 hover:bg-gray-200 drop-shadow-lg rounded-lg mb-3 w-fit m-1">
                     <div class="m-1 p-1 text-lg w-full text-center font-bold flex">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
