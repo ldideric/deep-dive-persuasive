@@ -17,7 +17,7 @@ import { Link } from '@inertiajs/vue3';
             </div>
             </div>
         </div>
-        <div class="w-1/3 min-h-screen border-l-4 border-gray-400 shadow-2xl bg-gray-300[0.3]">
+        <div class="w-1/3 min-h-screen border-l-4 border-gray-400 shadow-2xl bg-gradient-to-b from-blue-50 via-blue-100 to-indigo-600">
             <div class="flex flex-col">
                 <div class="px-10 pt-7 relative min-h-screen">
                     <div class="text-4xl font-bold text-black mb-5 border-b-2 border-slate-400 w-fit">Persuasive panel</div>
