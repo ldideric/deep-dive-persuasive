@@ -113,30 +113,45 @@ export default {
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-xl font-semibold text-gray-900">Welcome, {{ user.name }}</div>
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg pb-6 px-6">
+                    <div class="w-fit">
+                        <div class="p-6">
+                            <div class="text-xl font-semibold text-gray-900 border-b-2">
+                                Welcome, {{ user.name }}!
+                            </div>
+                            <div v-if="!isScientist" class="text-xl text-gray-900">
+                                You have 0 new results
+                            </div>
+                        </div>
+                    </div>
                     <div v-if="!isScientist">
                         <div class="flex justify-around">
-                            <div class="left bg-gray-100 w-2/3 m-3 flex flex-col items-center py-2">
-                                <div class="text-3xl font-semibold">
-                                    Something
-                                </div>
+                            <div class="left bg-gray-100 w-3/5 m-3 flex flex-col items-center py-2 px-4 rounded-md shadow-md mr-5">
+                                <h2 class="text-2xl font-semibold border-b-2 border-gray-200 mb-2">Welcome to the GP Dashboard</h2>
+                                <p class="text-sm text-gray-700 mb-4">Our platform bridges the gap between labs and GPs, saving time and money.</p>
+                                <ul class="list-disc pl-4">
+                                    <li class="mb-2">Quickly search and view your patient's lab results.</li>
+                                    <li class="mb-2">Save time with our algorithm for calculating patient risk scores.</li>
+                                    <li class="mb-2">Secure 2-factor authentication for login.</li>
+                                    <li class="mb-2">Easily assign test results to patients using simple forms or Excel uploads.</li>
+                                </ul>
+                                <p class="text-sm text-gray-700 mt-4">Our user-friendly design ensures easy access to your patient's lab results.</p>
                             </div>
-                            <div class="right bg-gray-100 w-1/3 m-3 flex flex-col items-center py-2">
-                                <div class="text-2xl font-semibold border-b-2 border-gray-200 mb-2">Recent activity</div>
+                            <div class="right bg-gray-100 w-2/5 m-3 flex flex-col items-center py-2 rounded-md shadow-md ml-5">
+                                <div class="text-2xl font-semibold border-b-2 border-gray-200 mb-2">Recent results</div>
                                 <div class="">
                                     <table v-if="Object.keys(results).length > 0">
                                         <tr>
+                                            <th class="border-b-2 border-gray-600 p-1">Date</th>
                                             <th class="border-b-2 border-gray-600 p-1">Patient</th>
-                                            <th class="border-b-2 border-gray-600 p-1">Activity</th>
                                             <th class="border-b-2 border-gray-600 p-1"></th>
                                         </tr>
                                         <tr v-for="result in results" class="text-center">
                                             <td class="border-t-2 border-gray-400 p-1 px-4" >
-                                                {{ result.patient.name }}
+                                                {{ result.created_at }}
                                             </td>
-                                            <td class="border-t-2 border-gray-400 p-1 px-4 font-semibold">
-                                                New result
+                                            <td class="border-t-2 border-gray-400 p-1 px-4" >
+                                                {{ result.patient.name }}
                                             </td>
                                             <td class="border-t-2 border-gray-400 p-1 px-4 font-semibold">
                                                 <button @click="view(result)">
@@ -243,7 +258,7 @@ export default {
                                     </div>
                                     <PrimaryButton class="w-1/6" @click.prevent="create">submit</PrimaryButton>
                                 </div>
-                                <div class="w-full flex justify-end">
+                                <div class="w-full flex justify-end pt-2">
                                     <input type="file" @change="onFileChange($event.target.files[0])" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
                                     <PrimaryButton class="w-1/6 bg-green-500 font-bold text-center" @click.prevent="uploadExcel">Upload Excel</PrimaryButton>
                                 </div>

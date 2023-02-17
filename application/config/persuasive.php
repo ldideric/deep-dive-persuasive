@@ -8,7 +8,8 @@ return [
         'proteinThree' => 1,
         'proteinFour' => 0.5,
         'age' => 0.5,
-        'male' => 0.5,
+        // 'male' => 0.5,
+        'male' => 0.75,
         'female' => 0.75,
     ],
 
