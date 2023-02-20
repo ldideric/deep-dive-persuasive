@@ -8,7 +8,6 @@ use App\Http\Controllers\ResultsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +35,9 @@ Route::middleware(['auth', 'two-factor'])->group(function () {
     Route::get('results/{patient}', [ResultsController::class, 'show'])
         ->name('results.show');
 
+    Route::get('results/{patient}/{id}', [ResultsController::class, 'info'])
+        ->name('results.info');
+
     Route::get('results/{patient:id}/create', [ResultsController::class, 'create'])
         ->middleware('isScientist')
         ->name('results.create');
@@ -43,6 +45,10 @@ Route::middleware(['auth', 'two-factor'])->group(function () {
     Route::post('results/{patient}/store', [ResultsController::class, 'store'])
         ->middleware(['isScientist', HandlePrecognitiveRequests::class])
         ->name('results.store');
+
+    Route::post('results/import', [ResultsController::class, 'import'])
+        ->middleware('isScientist')
+        ->name('results.import');
 });
 
 Route::get('verify/resend', [TwoFactorController::class, 'resend'])->name('verify.resend');

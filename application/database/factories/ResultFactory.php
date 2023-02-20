@@ -12,10 +12,10 @@ class ResultFactory extends Factory
         return [
             'patient_id' => fake()->randomNumber(8),
             'data' => ResultData::make(
-                fake()->randomFloat(1, 0.5, 5),
-                fake()->randomFloat(1, 0.5, 5),
-                fake()->randomFloat(1, 0.5, 5),
-                fake()->randomFloat(1, 0.5, 5),
+                fake()->randomFloat(1, 0.2, 6),
+                fake()->randomFloat(1, 0.2, 6),
+                fake()->randomFloat(1, 0.2, 6),
+                fake()->randomFloat(1, 0.2, 6),
                 fake()->numberBetween(1, 3),
             ),
             'created_at' => fake()->dateTimeBetween('-2 year', 'now'),

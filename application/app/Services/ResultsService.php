@@ -25,9 +25,25 @@ class ResultsService
         })->toArray();
     }
 
+    public function createFromResult(Patient $patient, int $id): array
+    {
+        $result = $patient->results()->where('id', $id)->first();
+
+        $risk = $this->calculateRisk($result->data, $patient);
+
+        return [
+            'id' => $result->id,
+            'date' => $result->created_at,
+            'value' => $risk,
+            'risk' => $this->getRiskValue($risk),
+            'data' => $result->data,
+        ];
+    }
+
     public function calculateRisk(array $data, Patient $patient): string
     {
-        return round((($data['protein_one'] * config('persuasive.algorithm.proteinOne')) + ($data['protein_two'] * config('persuasive.algorithm.proteinTwo')) + ($data['protein_three'] * config('persuasive.algorithm.proteinThree')) + ($data['protein_four'] * config('persuasive.algorithm.proteinFour')) + ($patient->age * config('persuasive.algorithm.age'))) * config('persuasive.algorithm.'.$patient->gender->value), 1);
+        return round((($data['protein_one'] * config('persuasive.algorithm.proteinOne')) + ($data['protein_two'] * config('persuasive.algorithm.proteinTwo')) + ($data['protein_three'] * config('persuasive.algorithm.proteinThree')) + ($data['protein_four'] * config('persuasive.algorithm.proteinFour')) + ($patient->age * config('persuasive.algorithm.age'))) * 
+        config('persuasive.algorithm.'.$patient->gender->value), 1);
     }
 
     public function getRiskValue(float $value)
@@ -45,7 +61,7 @@ class ResultsService
     {
         $result = $patient->results()->create([
             'patient_id' => $patient->id,
-            'data' => ResultData::createFromRequestData($data, 'data'),
+            'data' => ResultData::createFromRequestData($data),
         ]);
 
         return $result;

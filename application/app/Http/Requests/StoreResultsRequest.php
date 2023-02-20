@@ -21,7 +21,7 @@ class StoreResultsRequest extends FormRequest
             'proteinFour' => $this->isPrecognitive()
                     ? ['nullable', 'numeric', 'min:0', 'max:5']
                     : ['required', 'numeric', 'min:0', 'max:5'],
-            'signalValue' => $this->isPrecognitive()
+            'controlValue' => $this->isPrecognitive()
                     ? ['nullable', 'numeric', 'min:1', 'max:3']
                     : ['required', 'numeric', 'min:1', 'max:3'],
         ];

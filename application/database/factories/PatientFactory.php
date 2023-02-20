@@ -11,8 +11,8 @@ class PatientFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'date_of_birth' => fake()->dateTimeBetween('-80 years', '-18 years')->format('Y-m-d'),
+            'name' => fake()->firstname() . ' ' . fake()->lastname(),
+            'date_of_birth' => fake()->dateTimeBetween('-90 years', '-25 years')->format('Y-m-d'),
             'gender' => fake()->randomElement(Gender::cases()),
             'email' => fake()->unique()->safeEmail(),
             'address' => PatientAddress::make(
