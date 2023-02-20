@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreResultsRequest;
 use App\Http\Resources\PatientResource;
 use App\Models\Patient;
 use App\Services\ResultsService;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -23,5 +25,19 @@ class ResultsController extends Controller
             'patient' => (new PatientResource($patient)),
             'results' => $results,
         ]);
+    }
+
+    public function create(Patient $patient): Response
+    {
+        return Inertia::render('Results/Create', [
+            'patient' => (new PatientResource($patient)),
+        ]);
+    }
+
+    public function store(StoreResultsRequest $request, Patient $patient): RedirectResponse
+    {
+        $this->results->create($patient, $request->validated());
+
+        return redirect()->route('results.create', $patient)->with('success', 'Results successfully submitted!');
     }
 }

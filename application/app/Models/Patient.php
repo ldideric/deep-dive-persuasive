@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\Gender;
 use App\Helpers\DateHelper;
+use App\Models\Scopes\PatientScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -40,6 +41,11 @@ class Patient extends Model
     public function results(): HasMany
     {
         return $this->hasMany(Result::class);
+    }
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new PatientScope);
     }
 
     public function getSlugOptions(): SlugOptions

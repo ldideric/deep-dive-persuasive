@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Helpers\DateHelper;
+use App\Models\Scopes\ResultScope;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -38,5 +39,10 @@ class Result extends Model
         return Attribute::make(
             get: fn ($value) => DateHelper::convert($value)
         );
+    }
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new ResultScope());
     }
 }

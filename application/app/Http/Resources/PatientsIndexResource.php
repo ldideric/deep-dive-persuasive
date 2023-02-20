@@ -2,17 +2,18 @@
 
 namespace App\Http\Resources;
 
+use App\Helpers\DateHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PatientResource extends JsonResource
+class PatientsIndexResource extends JsonResource
 {
     public function toArray($request): array
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
-            'email' => $this->email,
+            'date_of_birth' => DateHelper::convert($this->date_of_birth),
             'gender' => $this->gender,
-            'age' => $this->age,
             'slug' => $this->slug,
         ];
     }

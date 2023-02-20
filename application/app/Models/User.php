@@ -70,4 +70,9 @@ class User extends Authenticatable
             get: fn ($value) => DateHelper::convert($value)
         );
     }
+
+    public function isScientist(): bool
+    {
+        return $this->user_type === UserType::Scientist;
+    }
 }
